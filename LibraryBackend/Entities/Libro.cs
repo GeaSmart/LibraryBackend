@@ -7,18 +7,16 @@ using System.Threading.Tasks;
 
 namespace LibraryBackend.Entities
 {
-    public class Autor
+    public class Libro
     {
         [Key]
         public int Id { get; set; }
 
-        [Column(TypeName = "varchar(50)")]        
+        [Column(TypeName = "varchar(50)")]
         [Required]
-        public string Nombre { get; set; }
-
-        //Propiedades de navegación
-        public List<Post> Posts { get; set; }
+        public string Titulo { get; set; }
 
         public List<AutorLibro> AutoresLibros { get; set; }
+
     }
 }
