@@ -15,5 +15,8 @@ namespace LibraryBackend.Entities
         [Column(TypeName = "varchar(50)")]        
         [Required]
         public string Nombre { get; set; }
+
+        //Propiedades de navegación
+        List<Post> Posts { get; set; }
     }
 }

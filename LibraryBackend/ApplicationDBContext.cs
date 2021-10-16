@@ -16,5 +16,7 @@ namespace LibraryBackend
 
         public DbSet<Autor> Autores { get; set; }
 
+        public DbSet<Post> Posts { get; set; }
+
     }
 }
