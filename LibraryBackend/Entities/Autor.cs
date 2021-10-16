@@ -17,6 +17,6 @@ namespace LibraryBackend.Entities
         public string Nombre { get; set; }
 
         //Propiedades de navegación
-        List<Post> Posts { get; set; }
+        public List<Post> Posts { get; set; }
     }
 }

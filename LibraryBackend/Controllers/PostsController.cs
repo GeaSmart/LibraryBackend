@@ -23,12 +23,17 @@ namespace LibraryBackend.Controllers
         public async Task<List<Post>> Get()
         {
             return await context.Posts.ToListAsync();
+            //return await context.Posts.Include(x => x.Autor).ToListAsync(); //Descomentar si se quiere traer los autores también
         }
 
         [HttpGet("{id:int}")]
-        public async Task<Post> Get(int id)
+        public async Task<ActionResult<Post>> Get(int id)
         {
-            return await context.Posts.FirstOrDefaultAsync(x=>x.Id == id);
+            var existe = await context.Posts.AnyAsync(x => x.Id == id);
+            if (!existe)
+                return NotFound($"El Post con id {id} no existe");
+
+            return await context.Posts.Include(x=>x.Autor).FirstOrDefaultAsync(x=>x.Id == id); //el include trae data relacionada
         }
 
         [HttpPost]
