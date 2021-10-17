@@ -14,6 +14,12 @@ namespace LibraryBackend
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<AutorLibro>().HasKey(x => new { x.AutorId, x.LibroId });
+        }
+
         public DbSet<Autor> Autores { get; set; }
 
         public DbSet<Post> Posts { get; set; }

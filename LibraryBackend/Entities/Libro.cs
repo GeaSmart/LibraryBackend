@@ -16,6 +16,7 @@ namespace LibraryBackend.Entities
         [Required]
         public string Titulo { get; set; }
 
+        //propiedades de navegación
         public List<AutorLibro> AutoresLibros { get; set; }
 
     }
