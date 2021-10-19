@@ -1,4 +1,5 @@
-﻿using LibraryBackend.Entities;
+﻿using LibraryBackend.DTO;
+using LibraryBackend.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,6 +34,21 @@ namespace LibraryBackend.Controllers
                 return NotFound($"No existe el libro con el id {id}");
 
             return await context.Libros.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(LibroCreacionDTO libroCreacionDTO)
+        {
+            var autoresIdsExistentes = await (from l in context.Autores where libroCreacionDTO.AutoresIds.Contains(l.Id) select l.Id).ToListAsync();
+
+            if(autoresIdsExistentes.Count != libroCreacionDTO.AutoresIds.Count)
+            {
+                return BadRequest("Algunos ids de autores no existen");
+            }
+            //await context.Libros.AddAsync(libro);
+            //await context.SaveChangesAsync();
+            return Ok();
+
         }
     }
 }
