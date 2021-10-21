@@ -36,7 +36,10 @@ namespace LibraryBackend.Controllers
             if (!existe)
                 return NotFound($"No existe el libro con el id {id}");
 
-            return await context.Libros.FirstOrDefaultAsync(x => x.Id == id);
+            return await context.Libros
+                .Include(x => x.AutoresLibros)
+                .ThenInclude(x => x.Autor)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         [HttpPost]
@@ -52,6 +55,7 @@ namespace LibraryBackend.Controllers
 
             var libro = mapper.Map<Libro>(libroCreacionDTO);
 
+            //Asignando orden
             if(libro.AutoresLibros != null)
             {
                 for(int i = 0; i < libro.AutoresLibros.Count; i++)
